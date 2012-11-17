@@ -1,0 +1,21 @@
+{
+  "name" : "state-engines",
+  "description": "Tools for simple state machines, such as those based on Markov chains.",
+  "keywords": ["state", "machine"],
+  "preferGlobal": true,
+  "version": "0.0.1",
+  "homepage": "https://github.com/exratione/state-engines",
+  "author": "Reason <reason@exratione.com>",
+  "engines": {
+    "node": ">= 0.9"
+  },
+  "main": "./index",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/exratione/state-engines"
+  },
+  "licenses" : [{
+    "type" : "MIT",
+    "url" : "https://github.com/exratione/state-engines/raw/master/LICENSE"
+  }]
+}
