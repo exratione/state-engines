@@ -6,19 +6,21 @@
 var stateEngines = require("state-engines");
 
 /**
- * Assuming that the state engine is working with StringStates, then
- * use it to build a name.
+ * Assuming that the state engine is working with suitable StringStates, 
+ * then use it to build a name.
  * 
+ * @param {StateEngine} engine
+ *   A state engine instance.
  * @return {string}
  *   A name.
  */
-function generateName(stateEngine) {
+function generateName(engine) {
   var name = "";
-  stateEngine.setCurrentStateToUndefined();
-  stateEngine.transition();
-  while (!stateEngine.currentState.isUndefined) {
-    name += stateEngine.currentState.representation;
-    stateEngine.transition();
+  engine.setCurrentStateToUndefined();
+  engine.transition();
+  while (!engine.currentState.isUndefined) {
+    name += engine.currentState.representation;
+    engine.transition();
   }
   return name;
 };
@@ -32,99 +34,94 @@ function generateName(stateEngine) {
  *   An array of StringState objects.
  */
 function stringToStringStateArray(str) {
-  var array = str.split("");
-  for (var index = 0; index < array.length; index++) {
-    array[index] = stateEngines.stringState(array[index]);
-  }
-  return array;
+  return str.split("").map(function(element) {
+    return stateEngines.stringState(element);
+  });
 };
 
 // Some names to use as raw material in the state engine.
 var names = [
-  "Abbadon",
-  "Adriel",
-  "Ambriel",
-  "Amesha Spenta",
-  "Arariel",
-  "Ahriman",
-  "Ariel",
-  "Azazel",
-  "Azrael",
-  "Abymael",
-  "Barachiel",
-  "Cassiel",
-  "Camael",
-  "Darda'il",
-  "Dumah",
-  "Eremiel",
-  "Gabriel",
-  "Gadreel",
-  "Gagiel",
-  "Hadraniel",
-  "Haniel",
-  "Harut",
-  "Hesediel",
-  "Hamalat al-Arsh",
-  "Israfel",
-  "Jegudiel",
-  "Jehoel",
-  "Jequn",
-  "Jerahmeel",
-  "Jophiel",
-  "Kasdeja",
-  "Kiraman Katibin",
-  "Kushiel",
-  "Kosmiel",
-  "Leliel",
-  "Lucifer",
-  "Maalik",
-  "Malik",
-  "Marut",
-  "Metatron",
-  "Michael",
-  "Munkar",
-  "Mu'aqqibat",
-  "Muriel",
-  "Nakir",
-  "Nuriel",
-  "Ophanim",
-  "Orifiel",
-  "Pahaliah",
-  "Penemue",
-  "Puriel",
-  "Qaphsiel",
-  "Raguel",
-  "Raphael",
-  "Raqib",
-  "Raziel",
-  "Remiel",
-  "Ridwan",
-  "Sachiel",
-  "Samael",
-  "Sandalphon",
-  "Sariel",
-  "Selaphiel",
-  "Seraphiel",
-  "Simiel",
-  "Shamsiel",
-  "Tzaphqiel",
-  "Temeluchus",
-  "Uriel",
-  "Uzziel",
-  "Yehudiel",
-  "Yerachmiel",
-  "Zabaniyah",
-  "Zachariel",
-  "Zadkiel",
-  "Zephon",
-  "Zophiel"
+  "abbadon",
+  "adriel",
+  "ambriel",
+  "amesha spenta",
+  "arariel",
+  "ahriman",
+  "ariel",
+  "azazel",
+  "azrael",
+  "abymael",
+  "barachiel",
+  "cassiel",
+  "camael",
+  "dumah",
+  "eremiel",
+  "gabriel",
+  "gadreel",
+  "gagiel",
+  "hadraniel",
+  "haniel",
+  "harut",
+  "hesediel",
+  "israfel",
+  "jegudiel",
+  "jehoel",
+  "jequn",
+  "jerahmeel",
+  "jophiel",
+  "kasdeja",
+  "kiraman katibin",
+  "kushiel",
+  "kosmiel",
+  "leliel",
+  "lucifer",
+  "maalik",
+  "malik",
+  "marut",
+  "metatron",
+  "michael",
+  "munkar",
+  "muriel",
+  "nakir",
+  "nuriel",
+  "ophanim",
+  "orifiel",
+  "pahaliah",
+  "penemue",
+  "puriel",
+  "qaphsiel",
+  "raguel",
+  "raphael",
+  "raqib",
+  "raziel",
+  "remiel",
+  "ridwan",
+  "sachiel",
+  "samael",
+  "sandalphon",
+  "sariel",
+  "selaphiel",
+  "seraphiel",
+  "simiel",
+  "shamsiel",
+  "tzaphqiel",
+  "temeluchus",
+  "uriel",
+  "uzziel",
+  "yehudiel",
+  "yerachmiel",
+  "zabaniyah",
+  "zachariel",
+  "zadkiel",
+  "zephon",
+  "zophiel"
 ];
 
 // Create the state engine and feed it the names.
 var markovChainStateEngine = stateEngines.markovChainStateEngine();
-for (var index = 0; index < names.length; index++) {
-  markovChainStateEngine.addPath(stringToStringStateArray(names[index]));
-}
+names.forEach(function(element) {
+  markovChainStateEngine.addPath(stringToStringStateArray(element));
+});
 
 // Generate new names.
 for (var index = 0; index < 10; index++) {
