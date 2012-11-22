@@ -8,4 +8,4 @@ module.exports.MarkovChainStateEngine = require("./lib/stateEngines/markovChainS
 // State classes.
 module.exports.StringState = require("./lib/states/stringState");
 // Converter classes.
-module.exports.StringToLetterStatesConverter = require("./lib/converters/stringToLetterStatesConverter");
+module.exports.StringToStringStatesConverter = require("./lib/converters/stringToStringStatesConverter");

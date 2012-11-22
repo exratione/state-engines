@@ -84,12 +84,27 @@ var names = [
 ];
 
 // Create the state engine with a suitable converter and feed it the names.
-// This converter turns strings into a sequence of States instances of a 
+// This converter turns strings into a sequence of StringState instances of a 
 // single letter each, and vice versa.
-var converter = new stateEngines.StringToLetterStatesConverter();
+var converter = new stateEngines.StringToStringStatesConverter({
+  length: 1
+});
 var engine = new stateEngines.MarkovChainStateEngine(converter, names);
 
 // Generate new names.
+console.log("Markov chain with single-letter states:");
 for (var index = 0; index < 10; index++) {
-  console.log(engine.generateEntity());
+  console.log("" + index + ") " + engine.generateEntity());
+}
+
+// Try it out with a different converter configuration: two-letter states this
+// time around.
+converter = new stateEngines.StringToStringStatesConverter({
+  length: 2
+});
+engine = new stateEngines.MarkovChainStateEngine(converter, names);
+
+console.log("Markov chain with double-letter states:");
+for (var index = 0; index < 10; index++) {
+  console.log("" + index + ") " + engine.generateEntity());
 }
