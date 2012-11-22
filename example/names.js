@@ -1,43 +1,9 @@
 /**
  * @fileOverview
- * Use a Markov Chain state engine in a trivial way to build names.
+ * Use a simple Markov chain state engine to build names.
  */
 
 var stateEngines = require("state-engines");
-
-/**
- * Assuming that the state engine is working with suitable StringStates, 
- * then use it to build a name.
- * 
- * @param {StateEngine} engine
- *   A state engine instance.
- * @return {string}
- *   A name.
- */
-function generateName(engine) {
-  var name = "";
-  engine.setCurrentStateToUndefined();
-  engine.transition();
-  while (!engine.currentState.isUndefined) {
-    name += engine.currentState.representation;
-    engine.transition();
-  }
-  return name;
-};
-
-/**
- * A utility function for splitting a string into single-character states.
- * 
- * @param {string} string
- *   The string to convert.
- * @return {Array}
- *   An array of StringState objects.
- */
-function stringToStringStateArray(str) {
-  return str.split("").map(function(element) {
-    return stateEngines.stringState(element);
-  });
-};
 
 // Some names to use as raw material in the state engine.
 var names = [
@@ -117,13 +83,13 @@ var names = [
   "zophiel"
 ];
 
-// Create the state engine and feed it the names.
-var markovChainStateEngine = stateEngines.markovChainStateEngine();
-names.forEach(function(element) {
-  markovChainStateEngine.addPath(stringToStringStateArray(element));
-});
+// Create the state engine with a suitable converter and feed it the names.
+// This converter turns strings into a sequence of States instances of a 
+// single letter each, and vice versa.
+var converter = new stateEngines.StringToLetterStatesConverter();
+var engine = new stateEngines.MarkovChainStateEngine(converter, names);
 
 // Generate new names.
 for (var index = 0; index < 10; index++) {
-  console.log(generateName(markovChainStateEngine));
+  console.log(engine.generateEntity());
 }

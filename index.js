@@ -1,23 +1,11 @@
 /**
  * @fileOverview
- * Convenience functions for creating new state engines and states.
+ * Convenient references.
  */
 
-var MarkovChainStateEngine = require("./lib/stateEngines/markovChainStateEngine.js");
-var StringState = require("./lib/states/stringState.js");
-
-/**
- * @return {StateEngine}
- *   A new Markov chain based StateEngine instance.
- */
-module.exports.markovChainStateEngine = function() {
-  return new MarkovChainStateEngine();
-};
-
-/**
- * @return {State}
- *   A new State represented by a string.
- */
-module.exports.stringState = function(str) {
-  return new StringState(str);
-};
+// StateEngine classes.
+module.exports.MarkovChainStateEngine = require("./lib/stateEngines/markovChainStateEngine");
+// State classes.
+module.exports.StringState = require("./lib/states/stringState");
+// Converter classes.
+module.exports.StringToLetterStatesConverter = require("./lib/converters/stringToLetterStatesConverter");
