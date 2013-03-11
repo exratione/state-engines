@@ -6,7 +6,7 @@
   "homepage": "https://github.com/exratione/state-engines",
   "author": "Reason <reason@exratione.com>",
   "engines": {
-    "node": ">= 0.9"
+    "node": ">= 0.8"
   },
   "main": "./index",
   "repository" : {
