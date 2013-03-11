@@ -86,7 +86,7 @@ var names = [
 /**
  * A convenience function for the Markov chain name generation that will be
  * happening here.
- * 
+ *
  * @param {Converter} converter
  *   A converter implementation for switching between strings and state arrays.
  * @param {string} blurb
@@ -105,7 +105,7 @@ var generateNamesViaMarkovChain = function(converter, blurb) {
 
 // Generate some names.
 generateNamesViaMarkovChain(
-  // This converter turns strings into a sequence of StringState instances of a 
+  // This converter turns strings into a sequence of StringState instances of a
   // single letter each, and vice versa.
   new stateEngines.StringToStringStatesConverter(),
   "Markov chain with single-letter states:"
@@ -122,10 +122,10 @@ generateNamesViaMarkovChain(
 );
 
 // And yet more names.
-//And some more names.
 generateNamesViaMarkovChain(
-   // Try it out with a different converter configuration: two-letter states this
-   // time around.
+   // Try it out with a different converter configuration: single letter states
+   // that look back by a single letter. Not quite the same as two letter
+   // states, as this has overlap.
   new stateEngines.StringToStringStatesConverter({
     length: 1,
     lookbackLength: 1

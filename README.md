@@ -24,7 +24,7 @@ wanted to try it out with state-engines, here is how it would work:
     ];
 
     // Create the state engine with a suitable converter and feed it the names.
-    // This converter turns strings into a sequence of StringState instances of a 
+    // This converter turns strings into a sequence of StringState instances of a
     // single letter each, and vice versa.
     var converter = new stateEngines.StringToStringStatesConverter();
     var engine = new stateEngines.MarkovChainStateEngine(converter, names);
